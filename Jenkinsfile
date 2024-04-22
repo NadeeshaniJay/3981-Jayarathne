@@ -1,6 +1,5 @@
 pipeline {
     agent any 
-   
     
     stages { 
         stage('SCM Checkout') {
@@ -17,9 +16,10 @@ pipeline {
         }
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'nadeeshani-docker', variable: 'nadeeshanidocker')]) {
-   
-               bat'docker login -u nadeeshanijay -p ${nadeeshanidocker}'
+                withCredentials([string(credentialsId: 'nadeeshani-docker', variable: 'nadeeshani-docker')]) {
+                    script {
+                        bat "docker login -u nadeeshanijay -p %nadeeshani-docker%"
+                    }
                 }
             }
         }
